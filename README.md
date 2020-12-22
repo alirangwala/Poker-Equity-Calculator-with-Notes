@@ -9,3 +9,5 @@ This tool is designed to make you a better player by showing you the math behind
 2. Input your hand and your opponents' hands
 3. Press CALCULATE ODDS
 4. Add the betting action (if you want) and save
+
+### A poker player lives on his edge. Enhance yours today!
