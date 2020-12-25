@@ -1,14 +1,30 @@
 import React, { useState } from 'react';
 import HandInput from '../HandInput/HandInput.jsx';
+import range from 'lodash'
 
-const HandInputList = ({ playerNum }) => {
+const HandInputList = ({ numOfPlayers }) => {
 
-  let playerArray = [...new Array(Number(playerNum))]
+  let playerArray = [...Array(+numOfPlayers).keys()]
+
+  const [holdings, setHoldings] = useState(playerArray.fill(''))
+
+  const addCards = (event, index) => {
+    let tempHoldings = [...holdings];
+    tempHoldings[index] = event.target.value;
+    setHoldings(tempHoldings)
+  }
 
   return (
-    <div>
-      {playerArray.map(i => <HandInput key={i} />)}
-    </div>
+    <form>
+      {playerArray.map((val, i) =>
+        <input
+          key={i}
+          type='text'
+          onChange={event => addCards(event, i)}
+        />
+      )}
+      <button type='submit' onClick={() => console.log(holdings)} >Calculate</button>
+    </form>
   );
 }
 

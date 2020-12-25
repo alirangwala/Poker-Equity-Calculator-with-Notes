@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-const PlayersDropdown = ({ setPlayerNum, playerNum }) => {
+const PlayersDropdown = ({ setNumOfPlayers, NumOfPlayers }) => {
 
   return (
     < form >
       <label>
         How many players?
-      <select name='Number of players' onChange={e => setPlayerNum(e.target.value)} value={playerNum}>
+      <select name='Number of players' onChange={e => setNumOfPlayers(e.target.value)} value={NumOfPlayers}>
           <option value='2'>2</option>
           <option value='3'>3</option>
           <option value='4'>4</option>
@@ -18,7 +18,7 @@ const PlayersDropdown = ({ setPlayerNum, playerNum }) => {
           <option value='10'>10</option>
         </select>
       </label>
-    </form >
+    </form>
   );
 }
 

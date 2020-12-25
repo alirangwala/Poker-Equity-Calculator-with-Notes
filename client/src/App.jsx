@@ -7,18 +7,27 @@ import PlayersDropdown from '../Components/PlayersDropdown/PlayersDropdown.jsx';
 
 const App = () => {
 
-  const [playerNum, setPlayerNum] = useState('2');
+  const [numOfPlayers, setNumOfPlayers] = useState('2');
+  // const [holdings, setHoldings] = useState([]);
+
+  // const onCalculate = () => {
+  //   setHoldings({
+  //     ...holdings,
+  //     player[key]: e.target.value
+  //   })
+  // }
 
   return (
     <div>
       <PlayersDropdown
-        setPlayerNum={setPlayerNum}
-        playerNum={playerNum}
+        setNumOfPlayers={setNumOfPlayers}
+        numOfPlayers={numOfPlayers}
       />
       <HandInputList
-        playerNum={playerNum}
+        numOfPlayers={numOfPlayers}
+      // holdings={holdings}
+      // setHoldings={setHoldings}
       />
-
     </div>
   );
 }
