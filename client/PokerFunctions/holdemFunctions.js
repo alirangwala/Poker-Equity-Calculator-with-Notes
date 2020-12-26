@@ -12,25 +12,128 @@ class Board {
   constructor(cards) {
     this.cards = cards;
   }
-  findFrequencies = () => {
+  findValueFrequencies = () => {
     let freqArr = new Array(15).fill(0)
     for (let i = 0; i < this.cards.length; i++) {
       freqArr[this.cards[i].value]++;
     }
     return freqArr
   }
+  findSuitFrequencies = () => {
+    let freqArr = { 's': 0, 'h': 0, 'd': 0, 'c': 0 }
+    for (let i = 0; i < this.cards.length; i++) {
+      freqArr[this.cards[i].suit]++;
+    }
+    return freqArr
+  }
 }
 
-//return highcard and 4 of a kind card
+// Note these individual formula's are not perfect... they do not exclude all the stronger hands because we are using them all in the handStrength functions that eliminates strongest first
+detectStraightFlush = (board) => {
+}
+
 detectFourOfAKind = (board) => {
-  if (board.findFrequencies().includes(4)) {
-    let fourOfAKind = {};
-    fourOfAKind['fourOfAKind'] = board.findFrequencies().indexOf(4)
-    fourOfAKind['highcard'] = Math.max(...board.cards.map(card => card.value))
-    return fourOfAKind;
+  if (board.findValueFrequencies().includes(4)) {
+    return true;
+  }
+  return false;
+}
+
+detectFullHouse = (board) => {
+  let freqArray = board.findValueFrequencies();
+  if (freqArray.includes(3) && freqArray.includes(2)) {
+    return true;
+  } else if (freqArray.includes(3, freqArray.indexOf(3) + 1)) {
+    return true;
+  }
+  return false;
+}
+
+detectFlush = (board) => {
+  let freqObj = board.findSuitFrequencies();
+  for (suit in freqObj) {
+    if (freqObj[suit] >= 5) {
+      return true;
+    }
+  }
+  return false;
+}
+
+detectStraight = (board) => {
+}
+
+detectThreeOfAKind = (board) => {
+  let freqArray = board.findValueFrequencies();
+  // three of a kind if only one three of a kind and no pairs
+  if (freqArray.includes(3) && !freqArray.includes(2) && !freqArray.includes(3, freqArray.indexOf(3) + 1)) {
+    return true;
+  }
+  return false;
+}
+
+detectTwoPair = (board) => {
+  let freqArray = board.findValueFrequencies();
+  if (freqArray.includes(2) && freqArray.includes(2, freqArray.indexOf(2) + 1) && !freqArray.includes(3)) {
+    return true;
+  }
+  return false;
+}
+
+detectPair = (board) => {
+  let freqArray = board.findValueFrequencies();
+  if (freqArray.includes(2) && !freqArray.includes(2, freqArray.indexOf(2) + 1) && !freqArray.includes(3)) {
+    return true;
+  }
+  return false;
+}
+
+detectHighCard = (board) => {
+  let freqArray = board.findValueFrequencies();
+  if (!freqArray.includes(2) && !freqArray.includes(3) && !freqArray.includes(4)) {
+    return true;
   }
   return false;
 }
 
 
-module.exports = { Card, Board, detectFourOfAKind, }
+handStrength = (board) => {
+  let freqArray = board.findValueFrequencies();
+  if (detectStraightFlush(board)) {
+    return 'Straight Flush'
+  } else if (detectFourOfAKind(board)) {
+    let fourOfAKind = {};
+    fourOfAKind['fourOfAKind'] = board.findValueFrequencies().lastIndexOf(4)
+    fourOfAKind['kicker'] = Math.max(...board.cards.map(card => card.value))
+    return fourOfAKind;
+  } else if (detectFullHouse(board)) {
+    let fullHouse = {};
+    fullHouse['threeOfAKind'] = freqArray.lastIndexOf(3)
+    // full house if two 3 of a kinds
+    fullHouse['pair'] = freqArray.lastIndexOf(2) > -1 ? freqArray.lastIndexOf(2) : freqArray.lastIndexOf(3, freqArray.lastIndexOf(3) - 1)
+    return fullHouse;
+    // full house if two 3 of a kinds
+  } else if (detectFlush(board)) {
+    return 'Flush'
+  } else if (detectStraight(board)) {
+    return 'Straight'
+  } else if (detectThreeOfAKind(board)) {
+    let threeOfAKind = {};
+    threeOfAKind['threeOfAKind'] = freqArray.lastIndexOf(3)
+    threeOfAKind['kicker'] = freqArray.lastIndexOf(1)
+    threeOfAKind['secondKicker'] = freqArray.lastIndexOf(1, freqArray.lastIndexOf(1) - 1)
+    return threeOfAKind;
+  } else if (detectTwoPair(board)) {
+    return 'TwoPair'
+  } else if (detectPair(board)) {
+    return 'Pair'
+  } else if (detectHighCard(board)) {
+    return 'HighCard'
+  } else {
+    "Something Went Wrong!!"
+  }
+}
+
+// let testBoard = new Board([new Card('3d'), new Card('6h'), new Card('6c'), new Card('6d'), new Card('6s'), new Card('Ah'), new Card('Kd')])
+// console.log(detectFourOfAKind(testBoard))
+
+module.exports = { Card, Board, detectStraightFlush, detectFourOfAKind, detectFullHouse, detectFlush, detectStraight, detectThreeOfAKind, detectTwoPair, detectPair, detectHighCard, handStrength }
