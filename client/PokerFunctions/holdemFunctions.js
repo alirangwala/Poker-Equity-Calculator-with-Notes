@@ -29,7 +29,41 @@ class Board {
 }
 
 // Note these individual formula's are not perfect... they do not exclude all the stronger hands because we are using them all in the handStrength functions that eliminates strongest first
+
 detectStraightFlush = (board) => {
+  let freqObj = board.findSuitFrequencies();
+  let freqArray = board.findValueFrequencies();
+  if (!detectFlush(board)) {
+    return false
+  } else {
+    let maxSuit = 's';
+    Object.keys(freqObj).forEach(function (key) {
+      maxSuit = (freqObj[key] > freqObj[maxSuit]) ? key : maxSuit;
+    });
+    let suitFreqArray = new Array(15).fill(0)
+
+    for (let i = 0; i < board.cards.length; i++) {
+      if (board.cards[i].suit === maxSuit) {
+        suitFreqArray[board.cards[i].value]++;
+      }
+    }
+    let counter = 0;
+    for (let i = 0; i < suitFreqArray.length; i++) {
+      if (suitFreqArray[i]) {
+        count++
+      } else {
+        count = 0
+      }
+      if (count >= 5) {
+        return true
+      }
+    }
+    //check low straight
+    if (suitFreqArray[2] && suitFreqArray[3] && suitFreqArray[4] && suitFreqArray[5] && suitFreqArray[14]) {
+      return true;
+    }
+    return false;
+  }
 }
 
 detectFourOfAKind = (board) => {
@@ -60,6 +94,23 @@ detectFlush = (board) => {
 }
 
 detectStraight = (board) => {
+  let freqArray = board.findValueFrequencies();
+  let counter = 0;
+  for (let i = 0; i < freqArray.length; i++) {
+    if (freqArray[i]) {
+      count++
+    } else {
+      count = 0
+    }
+    if (count >= 5) {
+      return true
+    }
+  }
+  //check low straight
+  if (freqArray[2] && freqArray[3] && freqArray[4] && freqArray[5] && freqArray[14]) {
+    return true;
+  }
+  return false;
 }
 
 detectThreeOfAKind = (board) => {

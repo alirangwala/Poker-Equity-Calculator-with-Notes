@@ -7,6 +7,17 @@ const Board = holdem.Board;
 
 describe('Individual Hand Ranking Functions', function () {
   before(function () {
+    testStraightFlushBoard = new Board([new Card('3d'), new Card('4d'), new Card('5d'), new Card('6d'), new Card('6s'), new Card('7d'), new Card('Kd')])
+    testStraightFlushBoard2 = new Board([new Card('3s'), new Card('4s'), new Card('5s'), new Card('2s'), new Card('6s'), new Card('As'), new Card('Kd')])
+  })
+  it('Straight Flush should be true', function () {
+    expect(detectStraightFlush(testStraightFlushBoard)).to.eql(true)
+  })
+  it('Low Straight Flush should be true', function () {
+    expect(detectStraightFlush(testStraightFlushBoard2)).to.eql(true)
+  })
+
+  before(function () {
     testFourOfAKindBoard = new Board([new Card('3d'), new Card('6h'), new Card('6c'), new Card('6d'), new Card('6s'), new Card('Ah'), new Card('Kd')])
   })
   it('Four of a Kind should be true', function () {
@@ -29,6 +40,18 @@ describe('Individual Hand Ranking Functions', function () {
   })
   it('Flush should be true', function () {
     expect(detectFlush(testFlushBoard)).to.eql(true)
+  })
+  before(function () {
+    testStraightBoard = new Board([new Card('3d'), new Card('4h'), new Card('6c'), new Card('Qd'), new Card('5s'), new Card('Ah'), new Card('7d')])
+  })
+  before(function () {
+    testStraightBoard2 = new Board([new Card('3d'), new Card('4h'), new Card('2c'), new Card('Qd'), new Card('5s'), new Card('Ah'), new Card('Ad')])
+  })
+  it('Straight should be true', function () {
+    expect(detectStraight(testStraightBoard)).to.eql(true)
+  })
+  it('Low Straight should be true', function () {
+    expect(detectStraight(testStraightBoard2)).to.eql(true)
   })
   before(function () {
     testThreeOfAKindBoard = new Board([new Card('3d'), new Card('6h'), new Card('6c'), new Card('Qd'), new Card('6s'), new Card('Ah'), new Card('Kd')])
