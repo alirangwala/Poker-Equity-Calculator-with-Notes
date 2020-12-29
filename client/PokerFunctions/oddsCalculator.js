@@ -1,4 +1,4 @@
-import * as holdem from './holdemFunctions.js';
+const holdem = require('./holdemFunctions.js');
 const Card = holdem.Card;
 const Board = holdem.Board;
 
@@ -6,13 +6,13 @@ const Board = holdem.Board;
 // let communityCards = [new Card('5s'), new Card('6d'), new Card('6s'), new Card('Th'), new Card('As')]
 
 let player1 = ['As', 'Kd']
-let player2 = ['Qh', 'Qd']
+let player2 = ['Qh', 'Qs']
 // let player3 = ['4c', '5d']
 // let player4 = ['8h', '7d']
 
 let playersHoldings = [player1, player2]
 
-let communityCards = []
+let communityCards = ['2s', '3d', 'Ks']
 
 const valueMapping = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 }
 const suits = ['s', 'h', 'd', 'c']
@@ -34,8 +34,9 @@ function generateAllCards() {
 
 const generateRandomBoard = (holdings, communityCards = []) => {
 
-  // move this logic outside
   let allCards = generateAllCards();
+
+  // move this logic outside
   // remove holdings and community cards from deck so no repeat cards
   let unexposedCards = allCards.filter(card => holdings.flat().concat(communityCards).indexOf(card) < 0)
 
@@ -48,11 +49,12 @@ const generateRandomBoard = (holdings, communityCards = []) => {
     board.push(new Card(unexposedCardsClone[randomIndex]))
     unexposedCardsClone.splice(randomIndex, 1)
   }
+
   return board
 }
 
 // takes in array of holdings, community cards and sims
-const monteCarloSim = (holdings, communityCards = [], numberSims) => {
+const monteCarloSim = (holdings, communityCards = [], numberSims = 100) => {
   // make an empty array. Each index will be incremented when that player wins
 
   let winners = new Array(holdings.length).fill(0)
@@ -61,10 +63,12 @@ const monteCarloSim = (holdings, communityCards = [], numberSims) => {
     for (let i = 0; i < numberSims; i++) {
       let playersFullHands = []
       let randomBoard = generateRandomBoard(holdings, communityCards)
-      for (holeCards of holdings) {
+      for (let j = 0; j < holdings.length; j++) {
+        let holeCards = holdings[j]
         playersFullHands.push(new Board([...holeCards.map(card => new Card(card)), ...randomBoard]))
+
       }
-      winner = holdem.compareHands(playersFullHands)
+      let winner = holdem.compareHands(playersFullHands)
       winners[winner[0]]++
     }
   }
@@ -72,12 +76,9 @@ const monteCarloSim = (holdings, communityCards = [], numberSims) => {
   return winners.map(wins => wins / numberSims)
 }
 
+// console.time()
+// console.log(monteCarloSim(playersHoldings, communityCards, 10000))
+// console.timeEnd()
 
-
-// console.log(combineHoleCardsAndBoard(holeCards, communityCards))
-// console.log(generateBoards(player1, communityCards))
-
-console.log(monteCarloSim(playersHoldings, communityCards, 100))
-
-module.exports = { Card, Board, generateAllCards, }
+module.exports = { Card, Board, generateAllCards, monteCarloSim }
 

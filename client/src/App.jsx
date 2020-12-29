@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import HandInput from '../Components/HandInput/HandInput.jsx';
-import HandInputList from '../Components/HandInputList/HandInputList.jsx';
+import HandInput from '../Components/HandInput.jsx';
+import HandInputList from '../Components/HandInputList.jsx';
 
-import PlayersDropdown from '../Components/PlayersDropdown/PlayersDropdown.jsx';
+import PlayersDropdown from '../Components/PlayersDropdown.jsx';
 
 
 const App = () => {
@@ -17,8 +17,8 @@ const App = () => {
       />
       <HandInputList
         numOfPlayers={numOfPlayers}
-      // holdings={holdings}
-      // setHoldings={setHoldings}
+      // odds={odds}
+      // setOdds={setOdds}
       />
     </div>
   );
