@@ -1,4 +1,4 @@
-const holdem = require('./holdemFunctions.js');
+import * as holdem from './holdemFunctions.js';
 const Card = holdem.Card;
 const Board = holdem.Board;
 
@@ -20,7 +20,7 @@ const suits = ['s', 'h', 'd', 'c']
 
 // Inputs are holeCards and communityCards (either 3, 4, or 5)
 
-generateAllCards = () => {
+function generateAllCards() {
   let allCards = []
   let valueArray = Object.keys(valueMapping)
   for (let i = 0; i < valueArray.length; i++) {
@@ -31,9 +31,11 @@ generateAllCards = () => {
 }
 
 // boards have to exclude the exposed cards of all players
-generateRandomBoard = (holdings, communityCards = []) => {
-  let allCards = generateAllCards();
 
+const generateRandomBoard = (holdings, communityCards = []) => {
+
+  // move this logic outside
+  let allCards = generateAllCards();
   // remove holdings and community cards from deck so no repeat cards
   let unexposedCards = allCards.filter(card => holdings.flat().concat(communityCards).indexOf(card) < 0)
 
@@ -50,7 +52,7 @@ generateRandomBoard = (holdings, communityCards = []) => {
 }
 
 // takes in array of holdings, community cards and sims
-monteCarloSim = (holdings, communityCards = [], numberSims) => {
+const monteCarloSim = (holdings, communityCards = [], numberSims) => {
   // make an empty array. Each index will be incremented when that player wins
 
   let winners = new Array(holdings.length).fill(0)
@@ -75,4 +77,7 @@ monteCarloSim = (holdings, communityCards = [], numberSims) => {
 // console.log(combineHoleCardsAndBoard(holeCards, communityCards))
 // console.log(generateBoards(player1, communityCards))
 
-// console.log(monteCarloSim(playersHoldings, communityCards, 100000))
+console.log(monteCarloSim(playersHoldings, communityCards, 100))
+
+module.exports = { Card, Board, generateAllCards, }
+

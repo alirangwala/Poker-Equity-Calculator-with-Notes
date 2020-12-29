@@ -8,15 +8,7 @@ import PlayersDropdown from '../Components/PlayersDropdown/PlayersDropdown.jsx';
 const App = () => {
 
   const [numOfPlayers, setNumOfPlayers] = useState('2');
-  // const [holdings, setHoldings] = useState([]);
-
-  // const onCalculate = () => {
-  //   setHoldings({
-  //     ...holdings,
-  //     player[key]: e.target.value
-  //   })
-  // }
-
+  const [odd, setOdds] = useState([])
   return (
     <div>
       <PlayersDropdown

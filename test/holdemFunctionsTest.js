@@ -3,8 +3,6 @@ const holdem = require('../client/PokerFunctions/holdemFunctions.js');
 const Card = holdem.Card;
 const Board = holdem.Board;
 
-
-
 describe('Individual Hand Ranking Functions', function () {
   before(function () {
     testStraightFlushBoard = new Board([new Card('3d'), new Card('4d'), new Card('5d'), new Card('6d'), new Card('6s'), new Card('7d'), new Card('Kd')])

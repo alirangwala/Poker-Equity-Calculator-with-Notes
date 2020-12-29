@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import HandInput from '../HandInput/HandInput.jsx';
-import range from 'lodash'
+import { useForm } from 'react-hook-form';
+import { generateAllCards } from '../PokerFunctions/oddsCalculator';
+// import { MyClass } from '../PokerFunctions/testFunction'
+
 
 const HandInputList = ({ numOfPlayers }) => {
 
   let playerArray = [...Array(+numOfPlayers).keys()]
 
   const [holdings, setHoldings] = useState(playerArray.fill(''))
+
+  const { register, handleSubmit } = useForm();
+  const onSubmit = data => console.log(data);
+
 
   const addCards = (event, index) => {
     let tempHoldings = [...holdings];
@@ -15,15 +22,22 @@ const HandInputList = ({ numOfPlayers }) => {
   }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       {playerArray.map((val, i) =>
         <input
+          name={`player ${i}`}
           key={i}
           type='text'
           onChange={event => addCards(event, i)}
+          ref={register({
+            // required: true
+            // validate: {
+            //   isCard: value => generateAllCards().includes(value)
+            // }
+          })}
         />
       )}
-      <button type='submit' onClick={() => console.log(holdings)} >Calculate</button>
+      <input type='submit' onClick={(e) => { e.preventDefault; console.log(generateAllCards()) }} />
     </form>
   );
 }

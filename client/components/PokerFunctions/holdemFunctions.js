@@ -1,25 +1,23 @@
-class Card {
+const Card = function (cardString) {
   //takes in strings in format 2s, Tc, Qd, Ah (value + suit)
-  constructor(cardString) {
-    const valueMapping = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 }
-    this.value = valueMapping[cardString[0]];
-    this.suit = cardString[1];
-  }
+  const valueMapping = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 }
+  this.value = valueMapping[cardString[0]];
+  this.suit = cardString[1];
 }
 
-class Board {
+const Board = function (cards) {
   //takes in array of 7 cards
-  constructor(cards) {
-    this.cards = cards;
-  }
-  findValueFrequencies = () => {
+  this.cards = cards;
+
+  Board.prototype.findValueFrequencies = () => {
     let freqArr = new Array(15).fill(0)
+    // let freqArr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     for (let i = 0; i < this.cards.length; i++) {
       freqArr[this.cards[i].value]++;
     }
     return freqArr
   }
-  findSuitFrequencies = () => {
+  Board.prototype.findSuitFrequencies = () => {
     let freqArr = { 's': 0, 'h': 0, 'd': 0, 'c': 0 }
     for (let i = 0; i < this.cards.length; i++) {
       freqArr[this.cards[i].suit]++;
@@ -30,7 +28,7 @@ class Board {
 
 // Note these individual formula's are not perfect... they do not exclude all the stronger hands because we are using them all in the handStrength functions that eliminates strongest first
 
-detectStraightFlush = (board) => {
+const detectStraightFlush = (board) => {
   let freqObj = board.findSuitFrequencies();
   let freqArray = board.findValueFrequencies();
   if (!detectFlush(board)) {
@@ -66,14 +64,14 @@ detectStraightFlush = (board) => {
   }
 }
 
-detectFourOfAKind = (board) => {
+const detectFourOfAKind = (board) => {
   if (board.findValueFrequencies().includes(4)) {
     return true;
   }
   return false;
 }
 
-detectFullHouse = (board) => {
+const detectFullHouse = (board) => {
   let freqArray = board.findValueFrequencies();
   if (freqArray.includes(3) && freqArray.includes(2)) {
     return true;
@@ -83,7 +81,7 @@ detectFullHouse = (board) => {
   return false;
 }
 
-detectFlush = (board) => {
+const detectFlush = (board) => {
   let freqObj = board.findSuitFrequencies();
   for (suit in freqObj) {
     if (freqObj[suit] >= 5) {
@@ -93,7 +91,7 @@ detectFlush = (board) => {
   return false;
 }
 
-detectStraight = (board) => {
+const detectStraight = (board) => {
   let freqArray = board.findValueFrequencies();
   let counter = 0;
   for (let i = 0; i < freqArray.length; i++) {
@@ -113,7 +111,7 @@ detectStraight = (board) => {
   return false;
 }
 
-detectThreeOfAKind = (board) => {
+const detectThreeOfAKind = (board) => {
   let freqArray = board.findValueFrequencies();
   // three of a kind if only one three of a kind and no pairs
   if (freqArray.includes(3) && !freqArray.includes(2) && !freqArray.includes(3, freqArray.indexOf(3) + 1)) {
@@ -122,7 +120,7 @@ detectThreeOfAKind = (board) => {
   return false;
 }
 
-detectTwoPair = (board) => {
+const detectTwoPair = (board) => {
   let freqArray = board.findValueFrequencies();
   if (freqArray.includes(2) && freqArray.includes(2, freqArray.indexOf(2) + 1) && !freqArray.includes(3)) {
     return true;
@@ -130,7 +128,7 @@ detectTwoPair = (board) => {
   return false;
 }
 
-detectPair = (board) => {
+const detectPair = (board) => {
   let freqArray = board.findValueFrequencies();
   if (freqArray.includes(2) && !freqArray.includes(2, freqArray.indexOf(2) + 1) && !freqArray.includes(3)) {
     return true;
@@ -138,7 +136,7 @@ detectPair = (board) => {
   return false;
 }
 
-detectHighCard = (board) => {
+const detectHighCard = (board) => {
   let freqArray = board.findValueFrequencies();
   if (!freqArray.includes(2) && !freqArray.includes(3) && !freqArray.includes(4)) {
     return true;
@@ -160,9 +158,12 @@ detectHighCard = (board) => {
 // Pair [1, 14, 12, 10, 9] -- pair, kicker, second kicker, third kicker
 // High Card [0, 14, 12, 9, 8, 7]-- 5 high cards in order
 
-handStrength = (board) => {
+const handStrength = (board) => {
+
   let freqArray = board.findValueFrequencies();
   let freqObj = board.findSuitFrequencies();
+
+  // insert detect flush
   if (detectStraightFlush(board)) {
     let straightFlush = [8]
     return straightFlush
@@ -269,7 +270,7 @@ handStrength = (board) => {
   }
 }
 
-compareHands = (arrayOfBoards) => {
+const compareHands = (arrayOfBoards) => {
   let handStrengths = []
   for (board of arrayOfBoards) {
     handStrengths.push(handStrength(board))
@@ -283,4 +284,10 @@ compareHands = (arrayOfBoards) => {
   return winningHandAndPlayer
 }
 
-module.exports = { Card, Board, detectStraightFlush, detectFourOfAKind, detectFullHouse, detectFlush, detectStraight, detectThreeOfAKind, detectTwoPair, detectPair, detectHighCard, handStrength, compareHands }
+module.exports = {
+  Card,
+  Board,
+  detectStraightFlush,
+  detectFourOfAKind,
+  detectFullHouse, detectFlush, detectStraight, detectThreeOfAKind, detectTwoPair, detectPair, detectHighCard, handStrength, compareHands
+}
