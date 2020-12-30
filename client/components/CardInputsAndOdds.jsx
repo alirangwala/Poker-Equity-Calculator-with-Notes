@@ -5,12 +5,10 @@ import { generateAllCards, monteCarloSim } from '../PokerFunctions/oddsCalculato
 // import { MyClass } from '../PokerFunctions/testFunction'
 
 
-const HandInputList = ({ numOfPlayers }) => {
+const CardInputsAndOdds = ({ numOfPlayers, holdings, setHoldings, board, setBoard, odds, setOdds }) => {
 
   let playerArray = [...Array(+numOfPlayers).keys()]
 
-  const [holdings, setHoldings] = useState(playerArray.fill(''))
-  const [board, setBoard] = useState('')
   const { register, handleSubmit } = useForm();
   const onSubmit = data => console.log('DATA', data)
 
@@ -22,9 +20,12 @@ const HandInputList = ({ numOfPlayers }) => {
       // console.log('holdings', holdingsArray)
       // console.log('community', communityCardsArray)
       console.log('monteIF', monteCarloSim(holdingsArray, communityCardsArray))
+      setOdds(monteCarloSim(holdingsArray, communityCardsArray))
     } else {
       // console.log('holdings', holdingsArray)
       console.log('monteELSE', monteCarloSim(holdingsArray))
+      setOdds(monteCarloSim(holdingsArray))
+
     }
   };
 
@@ -82,4 +83,4 @@ const HandInputList = ({ numOfPlayers }) => {
   );
 }
 
-export default HandInputList;
+export default CardInputsAndOdds;

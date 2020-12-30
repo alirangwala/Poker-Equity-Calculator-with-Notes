@@ -1,24 +1,33 @@
 import React, { useState } from 'react';
-import HandInput from '../Components/HandInput.jsx';
-import HandInputList from '../Components/HandInputList.jsx';
-
+import CardInputsAndOdds from '../Components/CardInputsAndOdds.jsx';
+import OddsDisplay from '../Components/OddsDisplay.jsx'
 import PlayersDropdown from '../Components/PlayersDropdown.jsx';
 
 
 const App = () => {
 
   const [numOfPlayers, setNumOfPlayers] = useState('2');
-  const [odd, setOdds] = useState([])
+  const [holdings, setHoldings] = useState([...Array(+numOfPlayers).fill('')])
+  const [board, setBoard] = useState('')
+  const [odds, setOdds] = useState([])
+
   return (
     <div>
       <PlayersDropdown
         setNumOfPlayers={setNumOfPlayers}
         numOfPlayers={numOfPlayers}
       />
-      <HandInputList
+      <CardInputsAndOdds
         numOfPlayers={numOfPlayers}
-      // odds={odds}
-      // setOdds={setOdds}
+        holdings={holdings}
+        setHoldings={setHoldings}
+        board={board}
+        setBoard={setBoard}
+        odds={odds}
+        setOdds={setOdds}
+      />
+      <OddsDisplay
+        odds={odds}
       />
     </div>
   );
