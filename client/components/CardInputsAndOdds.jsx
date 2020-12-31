@@ -17,15 +17,9 @@ const CardInputsAndOdds = ({ numOfPlayers, holdings, setHoldings, board, setBoar
     holdingsArray = Object.values(holdings).map(holecards => holecards.match(/(..?)/g))
     if (communityCards) {
       let communityCardsArray = [communityCards].map(cards => cards.match(/(..?)/g))
-      // console.log('holdings', holdingsArray)
-      // console.log('community', communityCardsArray)
-      console.log('monteIF', monteCarloSim(holdingsArray, communityCardsArray))
       setOdds(monteCarloSim(holdingsArray, communityCardsArray))
     } else {
-      // console.log('holdings', holdingsArray)
-      console.log('monteELSE', monteCarloSim(holdingsArray))
       setOdds(monteCarloSim(holdingsArray))
-
     }
   };
 

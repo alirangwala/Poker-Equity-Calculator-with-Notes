@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CardInputsAndOdds from '../Components/CardInputsAndOdds.jsx';
 import OddsDisplay from '../Components/OddsDisplay.jsx'
 import PlayersDropdown from '../Components/PlayersDropdown.jsx';
-
+import NoteTaking from '../Components/NoteTaking.jsx';
 
 const App = () => {
 
@@ -10,7 +10,7 @@ const App = () => {
   const [holdings, setHoldings] = useState([...Array(+numOfPlayers).fill('')])
   const [board, setBoard] = useState('')
   const [odds, setOdds] = useState([])
-
+  // const [notes, setNotes] = useState({})
   return (
     <div>
       <PlayersDropdown
@@ -28,6 +28,10 @@ const App = () => {
       />
       <OddsDisplay
         odds={odds}
+      />
+      <NoteTaking
+      // notes={notes}
+      // setNotes={setNotes}
       />
     </div>
   );
