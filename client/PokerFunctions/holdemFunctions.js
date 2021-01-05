@@ -18,11 +18,11 @@ const Board = function (cards) {
     return freqArr
   }
   Board.prototype.findSuitFrequencies = function () {
-    let freqArr = { 's': 0, 'h': 0, 'd': 0, 'c': 0 }
+    let freqObj = { 's': 0, 'h': 0, 'd': 0, 'c': 0 }
     for (let i = 0; i < this.cards.length; i++) {
-      freqArr[this.cards[i].suit]++;
+      freqObj[this.cards[i].suit]++;
     }
-    return freqArr
+    return freqObj
   }
 }
 

@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import FormInput from './FormInput.jsx';
-import * as Yup from 'yup'
+import axios from 'axios'
 
-const NoteTaking = ({ }) => {
+const NoteTaking = ({ holdings, board, odds }) => {
 
   const { register, handleSubmit, errors } = useForm({
   })
 
-
-
   const onSubmit = data => {
-    alert(`Data: ${JSON.stringify(data)}`);
+    axios.post('/notes/add', data)
+      .then(res => console.log(data))
+      .catch(res => console.log(JSON.stringify(data)))
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -34,13 +34,39 @@ const NoteTaking = ({ }) => {
         />
         {errors.game && errors.game.type === 'required' && (<p>This is required</p>)}
         <FormInput
+          label='Holdings'
+          id='holdings'
+          type='text'
+          name='holdings'
+          value={holdings}
+          register={register({ required: true })}
+        />
+        {errors.game && errors.game.type === 'required' && (<p>This is required</p>)}
+        <FormInput
+          label='Board'
+          id='board'
+          type='text'
+          name='board'
+          value={board}
+          register={register({ required: true })}
+        />
+        {errors.game && errors.game.type === 'required' && (<p>This is required</p>)}
+        <FormInput
+          label='Odds'
+          id='blinds'
+          type='odds'
+          name='odds'
+          value={odds}
+          register={register({ required: true })}
+        />
+        {errors.game && errors.game.type === 'required' && (<p>This is required</p>)}
+        <FormInput
           label='Stack'
           id='stack'
           type='text'
           name='stack'
           register={register}
         />
-
         <FormInput
           label='Position'
           id='position'
@@ -77,7 +103,6 @@ const NoteTaking = ({ }) => {
           name='riverAction'
           register={register}
         />
-
         <FormInput
           label='Win/Lose'
           id='win'

@@ -17,8 +17,10 @@ const CardInputsAndOdds = ({ numOfPlayers, holdings, setHoldings, board, setBoar
     holdingsArray = Object.values(holdings).map(holecards => holecards.match(/(..?)/g))
     if (communityCards) {
       let communityCardsArray = [communityCards].map(cards => cards.match(/(..?)/g))
+      console.log('if', holdingsArray, communityCardsArray)
       setOdds(monteCarloSim(holdingsArray, communityCardsArray))
     } else {
+      console.log('else')
       setOdds(monteCarloSim(holdingsArray))
     }
   };
@@ -38,11 +40,13 @@ const CardInputsAndOdds = ({ numOfPlayers, holdings, setHoldings, board, setBoar
       {playerArray.map((val, i) => {
         return (
           <div>
-            <label>{`PLAYER ${i + 1}`}</label>
+            <label>{`Player ${i + 1}`}</label>
+            <br />
             <input
               name={`player ${i + 1}`}
               key={i}
               type='text'
+              value={holdings[i]}
               onChange={event => addHoleCards(event, i)}
               ref={register({
                 required: true
@@ -54,13 +58,16 @@ const CardInputsAndOdds = ({ numOfPlayers, holdings, setHoldings, board, setBoar
           </div>)
       })}
       <div>
-        -------------------------------
       </div>
       <div>
-        <label>BOARD</label>
+        <br />
+        <br />
+        <label>Board</label>
+        <br />
         <input
           name='board'
           type='text'
+          value={board}
           onChange={event => addBoardCards(event)}
           ref={register({
             // validate: {
