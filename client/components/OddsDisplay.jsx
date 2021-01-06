@@ -5,12 +5,12 @@ const OddsDisplay = ({ odds }) => {
 
   return (
     <div>
+      {console.log("ODDS", odds)}
       <div className="odds header">Equity</div>
-      {odds.map((indiOdd, i) => {
+      {odds.map((individualOdd, i) => {
         return (
           <div className="odds">
-            {console.log('ODDs', odds)}
-            {`Player ${i + 1}: ${(indiOdd * 100).toFixed(2)}%`}
+            {`Player ${i + 1}: ${(individualOdd * 100).toFixed(2)}%`}
           </div>
         )
       })}

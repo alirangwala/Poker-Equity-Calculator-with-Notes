@@ -10,9 +10,9 @@ let player2 = ['Qh', 'Qs']
 // let player3 = ['4c', '5d']
 // let player4 = ['8h', '7d']
 
-let playersHoldings = [player2, player1]
+let playersHoldings = [player1, player2]
 
-let communityCards = ['Ts', '3d', '5s']
+let communityCards = ['Qd', '3d', '5s']
 
 const valueMapping = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 }
 const suits = ['s', 'h', 'd', 'c']
@@ -81,9 +81,11 @@ const monteCarloSim = (holdings, communityCards = [], numberSims = 1000) => {
   return winners.map(wins => wins / numberSims)
 }
 
-console.time()
-console.log(monteCarloSim(playersHoldings, communityCards))
-console.timeEnd()
+// console.log(monteCarloSim(playersHoldings, communityCards))
+// console.time()
+// console.log("inputs", playersHoldings, communityCards)
+// console.log("JSFUNCTION", monteCarloSim)
+// console.timeEnd()
 
 module.exports = { Card, Board, generateAllCards, monteCarloSim }
 

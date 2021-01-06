@@ -6,6 +6,7 @@ import NoteTaking from '../Components/NoteTaking.jsx';
 import DisplayNotes from '../Components/DisplayNotes.jsx';
 import CardLayout from '../Components/CardLayout.jsx';
 import Banner from '../Components/Banner.jsx';
+import TEST from '../Components/TEST.jsx';
 
 
 const App = () => {
@@ -75,6 +76,7 @@ const App = () => {
           <DisplayNotes />
         </div>
       </div>
+      <TEST />
     </div>
   );
 }

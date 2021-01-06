@@ -6,7 +6,6 @@ const SingleNote = ({ note }) => {
   return (
     <div>
       <h4>{note.game}</h4>
-      {console.log(note.holdings)}
       {note.holdings.map(holding =>
         <div>Villain: {holding}</div>
       )}

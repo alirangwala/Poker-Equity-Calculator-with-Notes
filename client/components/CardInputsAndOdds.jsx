@@ -17,10 +17,16 @@ const CardInputsAndOdds = ({ numOfPlayers, holdings, setHoldings, board, setBoar
     holdingsArray = Object.values(holdings).map(holecards => holecards.match(/(..?)/g))
     if (communityCards) {
       let communityCardsArray = [communityCards].map(cards => cards.match(/(..?)/g))
-      console.log('if', holdingsArray, communityCardsArray)
-      setOdds(monteCarloSim(holdingsArray, communityCardsArray))
+
+      console.log("REACT Inputs", holdingsArray, communityCardsArray[0])
+
+      console.log("REACT RESULT", monteCarloSim(holdingsArray, communityCardsArray[0]))
+      setOdds(monteCarloSim(holdingsArray, communityCardsArray[0]))
+
     } else {
-      console.log('else')
+      // console.time()
+      // console.log(monteCarloSim(holdingsArray))
+      // console.timeEnd()
       setOdds(monteCarloSim(holdingsArray))
     }
   };
