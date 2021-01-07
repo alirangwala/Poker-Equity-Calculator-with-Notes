@@ -272,18 +272,35 @@ const handStrength = function (board) {
 
 const compareHands = function (arrayOfBoards) {
 
+
+
   let handStrengths = []
   for (let j = 0; j < arrayOfBoards.length; j++) {
     let board = arrayOfBoards[j];
     handStrengths.push(handStrength(board))
   }
-  let winningHandAndPlayer = [0, handStrengths[0]]
+
+  // helper function to check matching arrays
+  let arraysMatch = function (arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+    for (let x = 0; x < arr1.length; x++) {
+      if (arr1[x] !== arr2[x]) return false;
+    }
+    return true;
+  };
+
+  // first term is array because if there is a tie there are multiple winners
+  let winningPlayerAndHand = [[0], handStrengths[0]]
   for (let i = 1; i < handStrengths.length; i++) {
-    if (winningHandAndPlayer[1] < handStrengths[i]) {
-      winningHandAndPlayer = [i, handStrengths[i]]
+    if (arraysMatch(winningPlayerAndHand[1], handStrengths[i])) {
+      winningPlayerAndHand[0].push(i)
+    } else if (winningPlayerAndHand[1] < handStrengths[i]) {
+      winningPlayerAndHand = [[i], handStrengths[i]]
+    } else {
+      continue;
     }
   }
-  return winningHandAndPlayer
+  return winningPlayerAndHand[0]
 }
 
 module.exports = {

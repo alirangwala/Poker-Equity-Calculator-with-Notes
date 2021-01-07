@@ -5,14 +5,16 @@ import axios from 'axios'
 
 const NoteTaking = ({ holdings, board, odds }) => {
 
-  const { register, handleSubmit, errors } = useForm({
-  })
+  const { register, handleSubmit, errors } = useForm({})
+
+  let boardArr = board.length > 5 ? board.match(/(..?)/g) : []
 
   const onSubmit = data => {
     axios.post('/notes/add', data)
       .then(res => console.log(data))
       .catch(res => console.log(JSON.stringify(data)))
   }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
@@ -47,8 +49,8 @@ const NoteTaking = ({ holdings, board, odds }) => {
           id='board'
           type='text'
           name='board'
-          value={board}
-          register={register({ required: true })}
+          value={boardArr}
+          register={register}
         />
         {errors.game && errors.game.type === 'required' && (<p>This is required</p>)}
         <FormInput
@@ -57,7 +59,7 @@ const NoteTaking = ({ holdings, board, odds }) => {
           type='odds'
           name='odds'
           value={odds}
-          register={register({ required: true })}
+          register={register}
         />
         {errors.game && errors.game.type === 'required' && (<p>This is required</p>)}
         <FormInput
@@ -67,14 +69,19 @@ const NoteTaking = ({ holdings, board, odds }) => {
           name='stack'
           register={register}
         />
-        <FormInput
-          label='Position'
-          id='position'
-          type='text'
-          name='position'
-          register={register}
-        />
-        {errors.position && errors.position.type === 'required' && (<p>This is required</p>)}
+        <label htmlFor={'position'} >Position </label>
+        <br />
+        <select name='position' ref={register}>
+          <option value='Button'>Button</option>
+          <option value='Small Blind'>Small Blind</option>
+          <option value='Big Blind'>Big Blind</option>
+          <option value='UTG'>UTG</option>
+          <option value='UTG +1'>UTG +1</option>
+          <option value='UTG +2'>UTG +2</option>
+          <option value='LJ'>LJ</option>
+          <option value='HJ'>HJ</option>
+          <option value='CO'>CO</option>
+        </select>
         <FormInput
           label='Preflop Action'
           id='preflopAction'
@@ -104,23 +111,23 @@ const NoteTaking = ({ holdings, board, odds }) => {
           register={register}
         />
         <FormInput
-          label='Win/Lose'
-          id='win'
-          type='text'
-          name='win'
-          register={register}
-        />
-        <FormInput
           label='Additional Notes'
           id='addNotes'
           type='text'
           name='addNotes'
           register={register}
         />
+        <FormInput
+          label='Win/Lose'
+          id='win'
+          type='checkbox'
+          value='true'
+          name='win'
+          register={register}
+        />
       </div>
       <input
         type='submit'
-      // onClick={(e) => { e.preventDefault; setNotes({ 'yo': 'yo' }) }}
       />
     </form>
   );

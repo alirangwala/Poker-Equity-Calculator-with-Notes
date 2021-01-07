@@ -30,19 +30,10 @@ const notesSchema = mongoose.Schema({
   preflopAction: {
     type: String
   },
-  flop: {
-    type: String
-  },
   flopAction: {
     type: String
   },
-  turn: {
-    type: String
-  },
   turnAction: {
-    type: String
-  },
-  river: {
     type: String
   },
   riverAction: {

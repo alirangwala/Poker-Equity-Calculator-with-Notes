@@ -6,14 +6,14 @@ import NoteTaking from '../Components/NoteTaking.jsx';
 import DisplayNotes from '../Components/DisplayNotes.jsx';
 import CardLayout from '../Components/CardLayout.jsx';
 import Banner from '../Components/Banner.jsx';
-import TEST from '../Components/TEST.jsx';
-
 
 const App = () => {
 
   const [numOfPlayers, setNumOfPlayers] = useState('2');
-  const [holdings, setHoldings] = useState([...Array(+numOfPlayers).fill('')])
+  const [holdings, setHoldings] = useState(Array(+numOfPlayers).fill(''))
+  //String is better to deal with for onChange but convert to array for any calcs
   const [board, setBoard] = useState('')
+  // const [boardInput, setBoardInput] = useState('')
   const [odds, setOdds] = useState([])
 
   useEffect(() => {
@@ -53,6 +53,8 @@ const App = () => {
             setHoldings={setHoldings}
             board={board}
             setBoard={setBoard}
+            // boardInput={boardInput}
+            // setBoardInput={setBoardInput}
             odds={odds}
             setOdds={setOdds}
           />
@@ -76,7 +78,6 @@ const App = () => {
           <DisplayNotes />
         </div>
       </div>
-      <TEST />
     </div>
   );
 }

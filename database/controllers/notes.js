@@ -14,12 +14,13 @@ router.get('/', async (req, res) => {
 
 router.post('/add', async (req, res) => {
   try {
+    console.log("REQBODY", req.body)
     let notesObject = {
       email: req.body.email,
       game: req.body.game,
-      holdings: req.body.holdings,
-      board: req.body.board,
-      odds: +req.body.odds,
+      holdings: req.body.holdings.split(','),
+      board: req.body.board.split(','),
+      odds: req.body.odds.split(','),
       stack: req.body.stack || null,
       blinds: req.body.blinds,
       position: req.body.position,
@@ -58,15 +59,14 @@ router.post('/add/:id', async (req, res) => {
     note.email = req.body.email;
     note.game = req.body.game;
     note.holdings = req.body.holdings;
+    note.board = req.body.board;
+    note.odds = req.body.odds;
     note.stack = +req.body.stack;
     note.blinds = req.body.blinds;
     note.position = req.body.position;
     note.preflopAction = req.body.preflopAction;
-    note.flop = req.body.flop;
     note.flopAction = req.body.flopAction;
-    note.turn = req.body.turn;
     note.turnAction = req.body.turnAction;
-    note.river = req.body.river;
     note.riverAction = req.body.riverAction;
     note.win = req.body.win;
     note.additionalNotes = req.body.additionalNotes;

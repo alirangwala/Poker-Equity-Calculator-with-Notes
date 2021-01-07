@@ -161,8 +161,17 @@ describe('Compare Hands', function () {
     hand2 = new Board([new Card('Kd'), new Card('6h'), new Card('6c'), new Card('Qd'), new Card('6s'), new Card('Ks'), new Card('Kh')])
     hand3 = new Board([new Card('3d'), new Card('5h'), new Card('Jc'), new Card('Qd'), new Card('As'), new Card('Ah'), new Card('Kd')])
     hands = [hand1, hand2, hand3]
+
+    hand1Tie = new Board([new Card('3d'), new Card('3h'), new Card('6c'), new Card('Qd'), new Card('8s'), new Card('Jh'), new Card('2d')])
+    hand2Tie = new Board([new Card('Ad'), new Card('Kh'), new Card('6c'), new Card('Qd'), new Card('6s'), new Card('Qs'), new Card('2h')])
+    hand3Tie = new Board([new Card('As'), new Card('Kc'), new Card('6c'), new Card('Qd'), new Card('6s'), new Card('Qh'), new Card('2d')])
+    handsTie = [hand1Tie, hand2Tie, hand3Tie]
   })
   it('Expect player 0 to win and display strength', function () {
-    expect(holdem.compareHands(hands)).to.eql([1, [6, 13, 6]])
+    expect(holdem.compareHands(hands)).to.eql([1])
+  })
+
+  it('Expect player 0 to win and display strength', function () {
+    expect(holdem.compareHands(handsTie)).to.eql([1, 2])
   })
 })

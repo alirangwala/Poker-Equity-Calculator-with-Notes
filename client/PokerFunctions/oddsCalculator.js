@@ -5,14 +5,14 @@ const Board = holdem.Board;
 // let holeCards = [new Card('As'), new Card('Ad')]
 // let communityCards = [new Card('5s'), new Card('6d'), new Card('6s'), new Card('Th'), new Card('As')]
 
-let player1 = ['As', 'Kd']
-let player2 = ['Qh', 'Qs']
+let player1 = ['As', '7s']
+let player2 = ['3d', '3s']
 // let player3 = ['4c', '5d']
 // let player4 = ['8h', '7d']
 
 let playersHoldings = [player1, player2]
 
-let communityCards = ['Qd', '3d', '5s']
+let communityCards = ['4s', '4d', '5c']
 
 const valueMapping = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 }
 const suits = ['s', 'h', 'd', 'c']
@@ -63,8 +63,13 @@ const generateAllBoards = (holdings, communityCards = []) => {
 const monteCarloSim = (holdings, communityCards = [], numberSims = 1000) => {
   // make an empty array. Each index will be incremented when that player wins
 
-  let winners = new Array(holdings.length).fill(0)
-
+  // first item will be winners, second will be ties
+  // let results = new Array(holdings.length).fill([0, 0])
+  let results = []
+  for (let a = 0; a < holdings.length; a++) {
+    results = [...results, [0, 0]]
+  }
+  console.log('initial', results)
   if (numberSims !== 0) {
     for (let i = 0; i < numberSims; i++) {
       let playersFullHands = []
@@ -73,19 +78,26 @@ const monteCarloSim = (holdings, communityCards = [], numberSims = 1000) => {
         let holeCards = holdings[j]
         playersFullHands.push(new Board([...holeCards.map(card => new Card(card)), ...randomBoard]))
       }
-      let winner = holdem.compareHands(playersFullHands)
-      winners[winner[0]]++
+      let comparison = holdem.compareHands(playersFullHands)
+      if (comparison.length === 1) {
+        results[comparison[0]][0]++
+      } else {
+        for (let k = 0; k < comparison.length; k++) {
+          results[comparison[k]][1]++
+        }
+      }
     }
   }
   // returns array of odds
-  return winners.map(wins => wins / numberSims)
+
+  return results.map(result => [result[0] / numberSims, result[1] / numberSims])
 }
 
-// console.log(monteCarloSim(playersHoldings, communityCards))
-// console.time()
-// console.log("inputs", playersHoldings, communityCards)
-// console.log("JSFUNCTION", monteCarloSim)
-// console.timeEnd()
+console.log(monteCarloSim(playersHoldings, communityCards))
+console.time()
+console.log("inputs", playersHoldings, communityCards)
+console.log("JSFUNCTION", monteCarloSim)
+console.timeEnd()
 
 module.exports = { Card, Board, generateAllCards, monteCarloSim }
 
