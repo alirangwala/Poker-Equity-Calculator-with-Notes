@@ -3,14 +3,12 @@ import { useForm } from 'react-hook-form';
 import FormInput from './FormInput.jsx';
 import axios from 'axios'
 
-const NoteTaking = ({ holdings, board, odds }) => {
+const UpdateNote = ({ setModalIsOpen, note }) => {
 
   const { register, handleSubmit, errors } = useForm({})
 
-  let boardArr = board.length > 5 ? board.match(/(..?)/g) : []
-
   const onSubmit = data => {
-    axios.post('/notes/add', data)
+    axios.put(`/notes/add/${note._id}`, data)
       .then(res => console.log(data))
       .catch(res => console.log(JSON.stringify(data)))
   }
@@ -23,6 +21,7 @@ const NoteTaking = ({ holdings, board, odds }) => {
           id='game'
           type='text'
           name='game'
+          placeholder={note.game}
           register={register({ required: true, minLength: 5 })}
         />
         {errors.game && errors.game.type === 'required' && (<p>This is required</p>)}
@@ -40,7 +39,6 @@ const NoteTaking = ({ holdings, board, odds }) => {
           id='holdings'
           type='text'
           name='holdings'
-          value={holdings}
           register={register({ required: true })}
         />
         {errors.game && errors.game.type === 'required' && (<p>This is required</p>)}
@@ -49,7 +47,6 @@ const NoteTaking = ({ holdings, board, odds }) => {
           id='board'
           type='text'
           name='board'
-          value={boardArr}
           register={register}
         />
         {errors.game && errors.game.type === 'required' && (<p>This is required</p>)}
@@ -58,7 +55,6 @@ const NoteTaking = ({ holdings, board, odds }) => {
           id='blinds'
           type='odds'
           name='odds'
-          value={odds}
           register={register}
         />
         {errors.game && errors.game.type === 'required' && (<p>This is required</p>)}
@@ -112,15 +108,17 @@ const NoteTaking = ({ holdings, board, odds }) => {
         />
         <FormInput
           label='Additional Notes'
-          id='additionalNotes'
+          id='addNotes'
           type='text'
-          name='additionalNotes'
+          name='addNotes'
+          className='text-box'
           register={register}
         />
         <FormInput
           label='Win/Lose'
           id='win'
           type='checkbox'
+          value='true'
           name='win'
           register={register}
         />
@@ -128,8 +126,11 @@ const NoteTaking = ({ holdings, board, odds }) => {
       <input
         type='submit'
       />
+      <button onClick={(e) => { e.stopPropagation(); setModalIsOpen(false); }}> X </button>
     </form>
+
+
   );
 }
 
-export default NoteTaking;
+export default UpdateNote;

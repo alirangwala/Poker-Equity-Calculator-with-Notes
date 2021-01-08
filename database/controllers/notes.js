@@ -4,7 +4,7 @@ const Notes = require('../models/notes.js');
 
 router.get('/', async (req, res) => {
   try {
-    let notes = await Notes.find();
+    let notes = await Notes.find().sort({ dateCreated: - 1 });
     res.json(notes)
   }
   catch (err) {
@@ -14,14 +14,13 @@ router.get('/', async (req, res) => {
 
 router.post('/add', async (req, res) => {
   try {
-    console.log("REQBODY", req.body)
     let notesObject = {
       email: req.body.email,
       game: req.body.game,
       holdings: req.body.holdings.split(','),
       board: req.body.board.split(','),
       odds: req.body.odds.split(','),
-      stack: req.body.stack || null,
+      stack: req.body.stack,
       blinds: req.body.blinds,
       position: req.body.position,
       preflopAction: req.body.preflopAction,
@@ -31,7 +30,7 @@ router.post('/add', async (req, res) => {
       turnAction: req.body.turnAction,
       river: req.body.river,
       riverAction: req.body.riverAction,
-      win: req.body.win || true,
+      win: req.body.win,
       additionalNotes: req.body.additionalNotes
     }
     let newUser = await new Notes(notesObject).save()
@@ -56,22 +55,25 @@ router.post('/add/:id', async (req, res) => {
 
   let note = await Notes.findById(req.params.id)
   try {
-    note.email = req.body.email;
-    note.game = req.body.game;
-    note.holdings = req.body.holdings;
-    note.board = req.body.board;
-    note.odds = req.body.odds;
-    note.stack = +req.body.stack;
-    note.blinds = req.body.blinds;
-    note.position = req.body.position;
-    note.preflopAction = req.body.preflopAction;
-    note.flopAction = req.body.flopAction;
-    note.turnAction = req.body.turnAction;
-    note.riverAction = req.body.riverAction;
-    note.win = req.body.win;
-    note.additionalNotes = req.body.additionalNotes;
-    note.dateCreated = Date(req.body.dateCreated);
-
+    let notesObject = {
+      email: req.body.email,
+      game: req.body.game,
+      holdings: req.body.holdings.split(','),
+      board: req.body.board.split(','),
+      odds: req.body.odds.split(','),
+      stack: req.body.stack,
+      blinds: req.body.blinds,
+      position: req.body.position,
+      preflopAction: req.body.preflopAction,
+      flop: req.body.flop,
+      flopAction: req.body.flopAction,
+      turn: req.body.turn,
+      turnAction: req.body.turnAction,
+      river: req.body.river,
+      riverAction: req.body.riverAction,
+      win: req.body.win,
+      additionalNotes: req.body.additionalNotes
+    }
     note.save()
     res.json('Note Updated!')
   }
@@ -79,6 +81,7 @@ router.post('/add/:id', async (req, res) => {
     res.status(400).json('Error: ' + err)
   }
 })
+
 
 // {
 //   "email": "pokerplayer@gmail.com",

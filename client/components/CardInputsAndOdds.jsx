@@ -45,6 +45,7 @@ const CardInputsAndOdds = ({ numOfPlayers, holdings, setHoldings, board, setBoar
               key={i}
               type='text'
               value={holdings[i]}
+              placeholder='Add hand'
               onChange={event => addHoleCards(event, i)}
               ref={register({
                 required: true
@@ -65,6 +66,7 @@ const CardInputsAndOdds = ({ numOfPlayers, holdings, setHoldings, board, setBoar
         <input
           name='board'
           type='text'
+          placeholder='Add board'
           value={board}
           onChange={event => addBoardCards(event)}
           ref={register({

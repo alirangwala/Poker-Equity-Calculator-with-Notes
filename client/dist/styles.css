@@ -30,6 +30,9 @@ h1{
     padding-left:190px;
     }
 
+/* NOTE INPUT */
+.text-box{
+}
 /* NOTE CARDS */
 
 .note-card {
@@ -42,12 +45,48 @@ h1{
   background-color: #BFBFBF;
 }
 
+.note-header {
+  text-align: center;
+}
+
+.delete-button {
+  background-color: #B90E0A;
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.delete-button:hover {
+  background-color: white;
+  color: black;
+}
+
+.edit-button {
+  background-color: #37535B;
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.edit-button:hover {
+  background-color: white;
+  color: black;
+}
 /* ODDS */
 
 .odds-box{
   height: 125px;
 }
 .odds {
+  display:flex;
   color:#37535B;
 }
 .header {
@@ -78,7 +117,7 @@ ul {
 }
 .diamonds,
 .hearts {
-  color: red;
+  color: #B90E0A;
 }
 .card-back {
   color: darkblue;

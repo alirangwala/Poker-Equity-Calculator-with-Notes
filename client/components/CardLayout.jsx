@@ -161,7 +161,7 @@ const CardLayout = ({ clickCard }) => {
           clickCard={clickCard}
           value='2h'
           cssClass="two hearts card"
-          label="🂳"
+          label="🂲"
         />
       </ul>
       <ul className="cards">

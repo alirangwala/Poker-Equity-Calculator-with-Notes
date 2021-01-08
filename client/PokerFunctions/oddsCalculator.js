@@ -60,7 +60,7 @@ const generateAllBoards = (holdings, communityCards = []) => {
 
 
 // takes in array of holdings, community cards and sims
-const monteCarloSim = (holdings, communityCards = [], numberSims = 1000) => {
+const monteCarloSim = (holdings, communityCards = [], numberSims = 10000) => {
   // make an empty array. Each index will be incremented when that player wins
 
   // first item will be winners, second will be ties
@@ -69,7 +69,6 @@ const monteCarloSim = (holdings, communityCards = [], numberSims = 1000) => {
   for (let a = 0; a < holdings.length; a++) {
     results = [...results, [0, 0]]
   }
-  console.log('initial', results)
   if (numberSims !== 0) {
     for (let i = 0; i < numberSims; i++) {
       let playersFullHands = []
@@ -92,12 +91,11 @@ const monteCarloSim = (holdings, communityCards = [], numberSims = 1000) => {
 
   return results.map(result => [result[0] / numberSims, result[1] / numberSims])
 }
-
-console.log(monteCarloSim(playersHoldings, communityCards))
-console.time()
-console.log("inputs", playersHoldings, communityCards)
-console.log("JSFUNCTION", monteCarloSim)
-console.timeEnd()
+// console.log(monteCarloSim(playersHoldings, communityCards))
+// console.time()
+// console.log("inputs", playersHoldings, communityCards)
+// console.log("JSFUNCTION", monteCarloSim)
+// console.timeEnd()
 
 module.exports = { Card, Board, generateAllCards, monteCarloSim }
 
