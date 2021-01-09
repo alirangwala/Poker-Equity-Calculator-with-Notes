@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import CardInputsAndOdds from './Components/CardInputsAndOdds.jsx';
-import OddsDisplay from './Components/OddsDisplay.jsx'
-import PlayersDropdown from './Components/PlayersDropdown.jsx';
-import NoteTaking from './Components/NoteTaking.jsx';
-import DisplayNotes from './Components/DisplayNotes.jsx';
-import CardLayout from './Components/CardLayout.jsx';
-import Banner from './Components/Banner.jsx';
+import CardInputsAndOdds from './components/CardInputsAndOdds.jsx';
+import OddsDisplay from './components/OddsDisplay.jsx'
+import PlayersDropdown from './components/PlayersDropdown.jsx';
+import NoteTaking from './components/NoteTaking.jsx';
+import DisplayNotes from './components/DisplayNotes.jsx';
+import CardLayout from './components/CardLayout.jsx';
+import Banner from './components/Banner.jsx';
 
 const App = () => {
 
