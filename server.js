@@ -13,7 +13,7 @@ app.use(express.static('./client/dist')); // Host your dist folder up to the ser
 
 app.use(express.json()); // Alternative to BodyParser
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/notes' {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/notes', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   createIndexes: true
