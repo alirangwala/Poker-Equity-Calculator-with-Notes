@@ -9,7 +9,7 @@ require("dotenv").config()
 
 
 app.use(express.static('./client/dist')); // Host your dist folder up to the server
-app.use(express.static(path.join(__dirname, "client", "build")))
+// app.use(express.static(path.join(__dirname, "client", "build")))
 
 app.use(express.json()); // Alternative to BodyParser
 
