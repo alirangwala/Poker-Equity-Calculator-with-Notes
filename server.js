@@ -9,7 +9,7 @@ require("dotenv").config()
 
 
 // app.use(express.static('./client/dist')); // Host your dist folder up to the server
-app.use(express.static(path.join(__dirname, "client", "dist")))
+app.use(express.static(path.join(__dirname, 'client', 'dist')))
 
 app.use(express.json()); // Alternative to BodyParser
 
@@ -40,8 +40,8 @@ app.use('/notes', notesRouter)
 //   res.status(200).send('The server is taking requests to the products/:id endpoint');
 // });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 // Listening for requests on the PORT
 app.listen(port, () => {
