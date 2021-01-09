@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "cd server/ && node server.js",
+    "start": "node server.js",
     "build": "webpack --watch"
   },
+  "proxy": "http://localhost:8000",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alirangwala/Poker-Equity-Calculator-with-Notes.git"
@@ -23,6 +24,7 @@
   "homepage": "https://github.com/alirangwala/Poker-Equity-Calculator-with-Notes#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
