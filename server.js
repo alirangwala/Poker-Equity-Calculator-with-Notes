@@ -12,7 +12,7 @@ require("dotenv").config()
 app.use(express.static(path.join(__dirname, 'client', 'dist')))
 
 app.use(express.json()); // Alternative to BodyParser
-
+//mongodb+srv://alirangwala:Maybach12@cluster0.eqgyc.mongodb.net/notes?retryWrites=true&w=majority
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/notes', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
