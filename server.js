@@ -6,14 +6,33 @@ const mongoose = require('mongoose');
 const userRouter = require('./database/controllers/users.js')
 const notesRouter = require('./database/controllers/notes.js')
 require("dotenv").config()
+const { auth } = require('express-openid-connect');
 
+app.use(
+  auth({
+    authRequired: false,
+    auth0Logout: true,
+    issuerBaseURL: process.env.ISSUER_BASE_URL,
+    baseURL: process.env.BASE_URL,
+    clientID: process.env.CLIENT_ID,
+    secret: process.env.SECRET
+  })
+);
+
+app.get('/', (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? 'Logged In' : 'Logged Out');
+})
+
+// app.get('/profile', requiresAuth(), (req, res) => {
+//   res.send(JSON.stringify(req.oidc.user));
+// });
 
 // app.use(express.static('./client/dist')); // Host your dist folder up to the server
 app.use(express.static(path.join(__dirname, 'client', 'dist')))
 
 app.use(express.json()); // Alternative to BodyParser
 //mongodb+srv://alirangwala:Maybach12@cluster0.eqgyc.mongodb.net/notes?retryWrites=true&w=majority
-mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://alirangwala:Maybach12@cluster0.eqgyc.mongodb.net/notes?retryWrites=true&w=majority', {
+mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://alirangwala:pokerequity@cluster0.eqgyc.mongodb.net/notes?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   createIndexes: true
