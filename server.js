@@ -8,20 +8,20 @@ const notesRouter = require('./database/controllers/notes.js')
 require("dotenv").config()
 const { auth } = require('express-openid-connect');
 
-app.use(
-  auth({
-    authRequired: false,
-    auth0Logout: true,
-    issuerBaseURL: process.env.ISSUER_BASE_URL,
-    baseURL: process.env.BASE_URL,
-    clientID: process.env.CLIENT_ID,
-    secret: process.env.SECRET
-  })
-);
+// app.use(
+//   auth({
+//     authRequired: false,
+//     auth0Logout: true,
+//     issuerBaseURL: process.env.ISSUER_BASE_URL,
+//     baseURL: process.env.BASE_URL,
+//     clientID: process.env.CLIENT_ID,
+//     secret: process.env.SECRET
+//   })
+// );
 
-app.get('/', (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged In' : 'Logged Out');
-})
+// app.get('/', (req, res) => {
+//   res.send(req.oidc.isAuthenticated() ? 'Logged In' : 'Logged Out');
+// })
 
 // app.get('/profile', requiresAuth(), (req, res) => {
 //   res.send(JSON.stringify(req.oidc.user));
@@ -59,9 +59,9 @@ app.use('/notes', notesRouter)
 //   res.status(200).send('The server is taking requests to the products/:id endpoint');
 // });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+// });
 // Listening for requests on the PORT
 app.listen(port, () => {
   console.log('Serving up now at ' + JSON.stringify(port))
