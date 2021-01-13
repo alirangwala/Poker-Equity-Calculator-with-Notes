@@ -5,6 +5,7 @@ const Notes = require('../models/notes.js');
 router.get('/', async (req, res) => {
   try {
     let notes = await Notes.find().sort({ dateCreated: - 1 });
+    console.log("NOTES", notes)
     res.json(notes)
   }
   catch (err) {
