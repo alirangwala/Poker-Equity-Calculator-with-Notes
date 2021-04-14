@@ -55,17 +55,14 @@ const generateAllBoards = (holdings, communityCards = []) => {
   let unexposedCardsClone = [...unexposedCards]
   //covert string to Card
   let board = [...communityCards.map(card => new Card(card))]
-
 }
-
 
 // takes in array of holdings, community cards and sims
 const monteCarloSim = (holdings, communityCards = [], numberSims = 10000) => {
   // make an empty array. Each index will be incremented when that player wins
-
+  let results = []
   // first item will be winners, second will be ties
   // let results = new Array(holdings.length).fill([0, 0])
-  let results = []
   for (let a = 0; a < holdings.length; a++) {
     results = [...results, [0, 0]]
   }
@@ -87,8 +84,6 @@ const monteCarloSim = (holdings, communityCards = [], numberSims = 10000) => {
       }
     }
   }
-  // returns array of odds
-
   return results.map(result => [result[0] / numberSims, result[1] / numberSims])
 }
 // console.log(monteCarloSim(playersHoldings, communityCards))
