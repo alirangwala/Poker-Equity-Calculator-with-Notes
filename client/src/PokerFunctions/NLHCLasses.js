@@ -1,9 +1,9 @@
+var valueMapping = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
 var Card = /** @class */ (function () {
     //takes in strings in format 2s, Tc, Qd, Ah (value + suit)
     function Card(cardString) {
         this.cardString = cardString;
-        this.valueMapping = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
-        this.value = +this.valueMapping[cardString[0]];
+        this.value = +valueMapping[cardString[0]];
         this.suit = cardString[1];
     }
     return Card;
@@ -289,5 +289,6 @@ var Board = /** @class */ (function () {
 }());
 module.exports = {
     Card: Card,
-    Board: Board
+    Board: Board,
+    valueMapping: valueMapping
 };

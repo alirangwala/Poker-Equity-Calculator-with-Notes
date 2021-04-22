@@ -1,12 +1,12 @@
-class Card {
+const valueMapping: any = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 }
 
-  valueMapping: any = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 }
+class Card {
   value: number;
   suit: string;
 
   //takes in strings in format 2s, Tc, Qd, Ah (value + suit)
   constructor(public cardString: string){
-  this.value = +this.valueMapping[cardString[0]];
+  this.value = +valueMapping[cardString[0]];
   this.suit = cardString[1];
 }
 }
@@ -292,5 +292,6 @@ class Board {
 
 module.exports = {
   Card,
-  Board
+  Board,
+  valueMapping
 };
